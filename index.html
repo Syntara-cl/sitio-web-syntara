@@ -42,7 +42,7 @@
     --state-done-fg:#1E7A46; --state-done-bg:#DFF3E6;
   }
   *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
+  html{scroll-behavior:smooth; scroll-padding-top:100px;}
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
     *{animation:none !important; transition:none !important;}
@@ -77,6 +77,7 @@
   header.site{
     background:var(--nav-dark); border-bottom:3px solid var(--primary);
     margin-inline:-24px;
+    position:sticky; top:0; z-index:50;
   }
   header.site .wrap{
     display:flex; align-items:center; justify-content:space-between; gap:16px;
@@ -633,9 +634,9 @@
           <p>Plataformas de backoffice diseñadas para tu operación real, en vez de forzar tu negocio dentro de un software genérico.</p>
         </div>
         <div class="reveal">
-          <span class="card-icon"><i data-lucide="zap"></i></span>
-          <h3>Sistemas en tiempo real</h3>
-          <p>Paneles y aplicaciones que se actualizan al instante entre oficina y terreno, sin recargar ni refrescar manualmente.</p>
+          <span class="card-icon"><i data-lucide="bot"></i></span>
+          <h3>Automatización con inteligencia artificial</h3>
+          <p>Agentes de IA y flujos de trabajo automatizados que eliminan tareas manuales repetitivas, integrados directo a tu operación.</p>
         </div>
         <div class="reveal">
           <span class="card-icon"><i data-lucide="scan-text"></i></span>
@@ -650,7 +651,7 @@
         <div class="reveal">
           <span class="card-icon"><i data-lucide="plug-zap"></i></span>
           <h3>Integraciones y datos externos</h3>
-          <p>Conexión con mapas, APIs y fuentes de datos de terceros para centralizar la información en un solo lugar.</p>
+          <p>Conexión con APIs y proveedores externos —como telemetría GPS de flota— para centralizar toda la información en un solo lugar.</p>
         </div>
         <div class="reveal">
           <span class="card-icon"><i data-lucide="shield-check"></i></span>
