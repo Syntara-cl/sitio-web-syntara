@@ -9,12 +9,12 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Syntara">
 <meta property="og:title" content="Syntara — Automatización y software a medida">
-<meta property="og:description" content="Diseñamos y desarrollamos software a medida y automatizamos procesos operativos para empresas que necesitan una herramienta propia, no una plantilla genérica.">
+<meta property="og:description" content="Diseño y desarrollo software a medida y automatizo procesos operativos para empresas que necesitan una herramienta propia, no una plantilla genérica.">
 <meta property="og:image" content="https://www.syntara.cl/assets/logo-syntara-full.png">
 <meta property="og:url" content="https://www.syntara.cl">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Syntara — Automatización y software a medida">
-<meta name="twitter:description" content="Diseñamos y desarrollamos software a medida y automatizamos procesos operativos para empresas que necesitan una herramienta propia, no una plantilla genérica.">
+<meta name="twitter:description" content="Diseño y desarrollo software a medida y automatizo procesos operativos para empresas que necesitan una herramienta propia, no una plantilla genérica.">
 <meta name="twitter:image" content="https://www.syntara.cl/assets/logo-syntara-full.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap">
@@ -336,6 +336,26 @@
   }
   .logos-strip img:hover{filter:none; opacity:1;}
 
+  /* ---------- About ---------- */
+  .about-text{max-width:68ch; margin-top:32px;}
+  .about-text p{color:var(--text-muted); line-height:1.7;}
+  .about-text p + p{margin-top:18px;}
+
+  .brand-breakdown{
+    display:flex; flex-wrap:wrap; gap:28px; margin-top:44px; padding-top:32px;
+    border-top:1px solid var(--border);
+  }
+  .brand-breakdown .part{flex:1; min-width:140px;}
+  .brand-breakdown .letters{
+    display:block; font-size:2rem; font-weight:700; color:var(--primary); letter-spacing:0.02em;
+  }
+  .brand-breakdown .meaning{
+    display:block; font-size:0.82rem; color:var(--text-muted); margin-top:4px;
+  }
+  .brand-tagline{
+    margin-top:24px; font-size:1.05rem; font-weight:600; color:var(--text); max-width:60ch;
+  }
+
   /* ---------- Contact ---------- */
   .contact-box{
     background:var(--bg); border:1px solid var(--border); border-radius:var(--radius);
@@ -364,6 +384,7 @@
       <a href="#experiencia">Experiencia</a>
       <a href="#servicios">Qué hago</a>
       <a href="#marcas">Marcas</a>
+      <a href="#sobre-mi">Sobre mí</a>
       <a class="btn" href="#contacto">Contacto</a>
     </nav>
   </div>
@@ -372,8 +393,8 @@
 <main>
   <section class="hero wrap" id="top">
     <span class="eyebrow">Automatización y software a medida</span>
-    <h1>Construimos la automatización y la plataforma que tu operación necesita.</h1>
-    <p class="lede">En Syntara diseñamos y desarrollamos software a medida y automatizamos procesos operativos — paneles de control, aplicaciones móviles y la infraestructura de datos que los conecta — para empresas que necesitan una herramienta propia, no una plantilla genérica.</p>
+    <h1>Construyo la automatización y la plataforma que tu operación necesita.</h1>
+    <p class="lede">En Syntara diseño y desarrollo software a medida y automatizo procesos operativos — paneles de control, aplicaciones móviles y la infraestructura de datos que los conecta — para empresas que necesitan una herramienta propia, no una plantilla genérica.</p>
     <div class="cta-row">
       <a class="btn primary" href="#ejemplos">Ver ejemplos</a>
       <a class="btn secondary" href="#contacto">Contactar</a>
@@ -603,7 +624,7 @@
     <div class="wrap">
       <span class="eyebrow">Servicios</span>
       <h2>Automatización y plataformas a medida, de punta a punta</h2>
-      <p class="section-intro">Automatizamos procesos y desarrollamos software operativo completo: paneles web, aplicaciones móviles y la infraestructura de datos que los conecta.</p>
+      <p class="section-intro">Automatizo procesos y desarrollo software operativo completo: paneles web, aplicaciones móviles y la infraestructura de datos que los conecta.</p>
 
       <div class="card-grid">
         <div class="reveal">
@@ -642,12 +663,40 @@
 
   <section id="marcas">
     <div class="wrap">
-      <span class="eyebrow">Con quienes trabajamos</span>
+      <span class="eyebrow">Con quién trabajo</span>
       <h2>Marcas que confían en Syntara</h2>
-      <p class="section-intro">Empresas y organizaciones para las que desarrollamos soluciones a medida.</p>
+      <p class="section-intro">Empresas y organizaciones para las que desarrollo soluciones a medida.</p>
       <div class="logos-strip reveal">
         <img src="assets/logo-condominio-villa-tepual.png" alt="Condominio Villa Tepual">
       </div>
+    </div>
+  </section>
+
+  <section id="sobre-mi">
+    <div class="wrap">
+      <span class="eyebrow">Quién construye tu software</span>
+      <h2>Ingeniero primero, programador por convicción</h2>
+      <div class="about-text reveal">
+        <p>Me formé como Ingeniero Civil Industrial, con una base analítica que viene de años enseñando matemática. En el camino me topé una y otra vez con el mismo límite: las planillas y el software genérico no alcanzaban para modelar una operación real. Así empecé, de forma autodidacta, a construir yo mismo las herramientas que hacían falta.</p>
+        <p>Ese camino me llevó a diseñar sistemas complejos en producción — plataformas de gestión operativa completas, con automatización de procesos e integración de inteligencia artificial para eliminar el trabajo manual repetitivo.</p>
+        <p>Haber vivido del lado del cliente, forzando una operación real dentro de un software que no calzaba, es justo por qué fundé Syntara: en vez de vender licencias genéricas, construyo la herramienta a la medida exacta de cómo opera tu negocio.</p>
+      </div>
+
+      <div class="brand-breakdown reveal">
+        <div class="part">
+          <span class="letters">SYN</span>
+          <span class="meaning">Sistema · Sintaxis · Síntesis</span>
+        </div>
+        <div class="part">
+          <span class="letters">T</span>
+          <span class="meaning">Tecnología</span>
+        </div>
+        <div class="part">
+          <span class="letters">ARA</span>
+          <span class="meaning">Aravena</span>
+        </div>
+      </div>
+      <p class="brand-tagline">Integro tu operación con tecnología, con mi firma personal detrás.</p>
     </div>
   </section>
 
@@ -655,8 +704,8 @@
     <div class="wrap">
       <div class="contact-box reveal">
         <h2>Conversemos sobre tu proyecto</h2>
-        <p>Si necesitas automatizar procesos o una plataforma a medida para tu operación, escríbenos y revisamos el alcance.</p>
-        <a class="btn primary" href="mailto:contacto@syntara.cl" style="display:inline-flex; align-items:center; gap:8px;"><i data-lucide="mail" style="width:16px;height:16px;"></i>Escríbenos</a>
+        <p>Si necesitas automatizar procesos o una plataforma a medida para tu operación, escríbeme y revisamos el alcance.</p>
+        <a class="btn primary" href="mailto:contacto@syntara.cl" style="display:inline-flex; align-items:center; gap:8px;"><i data-lucide="mail" style="width:16px;height:16px;"></i>Escríbeme</a>
       </div>
     </div>
   </section>
