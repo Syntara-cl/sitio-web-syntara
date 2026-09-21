@@ -116,20 +116,84 @@
   .hero p.lede{max-width:60ch; margin-top:18px; color:var(--text-muted); font-size:1.08rem;}
   .hero .cta-row{margin-top:28px; display:flex; gap:14px; flex-wrap:wrap;}
 
-  .hero-preview{position:relative; flex:1 1 380px; min-width:280px; margin-top:8px;}
+  .hero-preview{position:relative; flex:1 1 380px; min-width:280px; margin-top:8px; perspective:1200px;}
+  .hero-preview::before{
+    content:""; position:absolute; inset:-40px; z-index:-1;
+    background:
+      radial-gradient(closest-side, color-mix(in srgb, var(--accent-light) 55%, transparent), transparent),
+      radial-gradient(closest-side, color-mix(in srgb, var(--primary) 55%, transparent), transparent);
+    background-repeat:no-repeat;
+    background-size:60% 60%, 55% 55%;
+    background-position:15% 15%, 85% 85%;
+    filter:blur(38px);
+    opacity:0.55;
+    animation:auraDrift 9s ease-in-out infinite alternate;
+  }
+  .hero-preview .demo{
+    position:relative; transform-style:preserve-3d; will-change:transform;
+    transition:transform 0.4s cubic-bezier(.2,.8,.2,1);
+  }
+  @keyframes auraDrift{
+    0%{ background-position:15% 15%, 85% 85%; }
+    100%{ background-position:22% 25%, 78% 72%; }
+  }
   .demo-kpis.two{grid-template-columns:repeat(2,1fr);}
+  .demo-kpis .num{
+    background:linear-gradient(90deg, var(--primary), var(--accent-light));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+
+  /* ---------- Carousel punch (aura behind the demo stage) ---------- */
+  .carousel-stage{position:relative;}
+  .carousel-stage::before{
+    content:""; position:absolute; inset:-30px; z-index:-1;
+    background:
+      radial-gradient(closest-side, color-mix(in srgb, var(--accent-light) 50%, transparent), transparent),
+      radial-gradient(closest-side, color-mix(in srgb, var(--primary) 50%, transparent), transparent);
+    background-repeat:no-repeat;
+    background-size:55% 70%, 50% 65%;
+    background-position:10% 20%, 90% 80%;
+    filter:blur(42px);
+    opacity:0.4;
+    animation:auraDrift 9s ease-in-out infinite alternate;
+  }
+  @media (prefers-reduced-motion: reduce){ .carousel-stage::before{animation:none;} }
+
+  /* ---------- Hero AI insight row ---------- */
+  .demo-list .row.ai-insight{
+    background:linear-gradient(90deg, color-mix(in srgb, var(--primary) 9%, var(--bg)), color-mix(in srgb, var(--accent-light) 9%, var(--bg)));
+    border:1px solid color-mix(in srgb, var(--primary) 25%, var(--border));
+    position:relative; overflow:hidden;
+  }
+  .ai-insight .row-main{gap:9px;}
+  .ai-insight-icon{
+    width:26px; height:26px; border-radius:50%; flex:none; display:grid; place-items:center;
+    background:linear-gradient(135deg, var(--primary), var(--accent-light)); color:var(--primary-contrast);
+    box-shadow:0 0 0 4px color-mix(in srgb, var(--primary) 14%, transparent);
+    animation:aiPulse 2.4s ease-in-out infinite;
+  }
+  .ai-insight-icon svg{width:13px; height:13px;}
+  @keyframes aiPulse{ 0%,100%{box-shadow:0 0 0 4px color-mix(in srgb, var(--primary) 14%, transparent);} 50%{box-shadow:0 0 0 8px color-mix(in srgb, var(--primary) 6%, transparent);} }
+  .ai-insight-label{font-size:0.66rem; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; color:var(--primary); display:block; margin-bottom:2px;}
+  .ai-insight-text{font-size:0.82rem; color:var(--text); font-weight:600; min-height:1.3em;}
+  .ai-cursor{display:inline-block; width:2px; height:0.95em; background:var(--primary); margin-left:2px; vertical-align:-2px; animation:caretBlink 0.85s steps(1) infinite;}
+  @keyframes caretBlink{ 50%{opacity:0;} }
+  @media (prefers-reduced-motion: reduce){ .ai-insight-icon, .ai-cursor{animation:none;} }
+
   .hero-chip{
     position:absolute; top:-16px; right:20px; z-index:1;
     display:flex; align-items:center; gap:7px;
-    background:var(--bg); border:1px solid var(--border); border-radius:999px;
+    background:var(--bg); border:1px solid transparent; border-radius:999px;
+    background-image:linear-gradient(var(--bg), var(--bg)), linear-gradient(120deg, var(--primary), var(--accent-light));
+    background-origin:border-box; background-clip:padding-box, border-box;
     padding:8px 14px; font-size:0.78rem; font-weight:700; color:var(--text);
-    box-shadow:0 10px 24px -12px var(--shadow);
+    box-shadow:0 10px 24px -12px var(--shadow), 0 0 0 4px color-mix(in srgb, var(--accent-light) 12%, transparent);
     animation:floatChip 3.6s ease-in-out infinite;
   }
-  .hero-chip svg{width:14px; height:14px; color:var(--live); flex:none;}
+  .hero-chip svg{width:14px; height:14px; color:var(--primary); flex:none;}
   @keyframes floatChip{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);} }
   @media (max-width:480px){ .hero-chip{top:-12px; right:12px; padding:6px 11px; font-size:0.72rem;} }
-  @media (prefers-reduced-motion: reduce){ .hero-chip{animation:none;} }
+  @media (prefers-reduced-motion: reduce){ .hero-chip{animation:none;} .hero-preview::before{animation:none;} }
 
   /* ---------- Carousel ---------- */
   .carousel-viewport{
@@ -441,6 +505,15 @@
               </svg>
             </div>
             <div class="demo-list">
+              <div class="row rich ai-insight">
+                <div class="row-main">
+                  <span class="ai-insight-icon"><i data-lucide="sparkles"></i></span>
+                  <div class="row-text">
+                    <span class="ai-insight-label">Sugerencia de la IA</span>
+                    <div class="ai-insight-text" id="aiInsightText"></div>
+                  </div>
+                </div>
+              </div>
               <div class="row rich">
                 <div class="row-main"><span class="dot-flag mid"></span><div class="row-text"><div class="row-title">Sincronización con ERP</div><div class="row-sub">Última corrida hace 2 min</div></div></div>
                 <span class="badge completado" data-cycle-badge>Sincronizado</span>
@@ -464,6 +537,7 @@
           <h3 id="carTitle">Un panel adaptable a cualquier tipo de servicio</h3>
           <p id="carDesc">Se puede configurar para lo que necesites gestionar: órdenes, visitas, mantenciones o cualquier flujo de trabajo con estados.</p>
         </div>
+        <div class="carousel-stage">
         <div class="carousel-viewport" id="carouselViewport">
 
           <div class="demo" aria-hidden="true">
@@ -486,6 +560,12 @@
                 </svg>
               </div>
               <div class="demo-list">
+                <div class="row rich ai-insight">
+                  <div class="row-main">
+                    <span class="ai-insight-icon"><i data-lucide="sparkles"></i></span>
+                    <div class="row-text"><span class="ai-insight-label">Sugerencia de la IA</span><div class="ai-insight-text">Priorizar Orden #3312 — vence su SLA en 40 min</div></div>
+                  </div>
+                </div>
                 <div class="row rich">
                   <div class="row-main"><span class="dot-flag high"></span><div class="row-text"><div class="row-title">Orden #3312 — Mantención de equipo</div><div class="row-sub">Cliente: Constructora Rivas · Prioridad alta</div></div></div>
                   <span class="badge proceso" data-cycle-badge>En proceso</span>
@@ -517,6 +597,12 @@
                 <div><div class="num" data-target="12">0</div><div class="lbl">Ingresos esta semana</div><div class="delta up">▲ +5 vs sem. pasada</div></div>
               </div>
               <div class="demo-list">
+                <div class="row rich ai-insight">
+                  <div class="row-main">
+                    <span class="ai-insight-icon"><i data-lucide="sparkles"></i></span>
+                    <div class="row-text"><span class="ai-insight-label">Sugerencia de la IA</span><div class="ai-insight-text">Asignar el próximo ingreso a Rodrigo Soto — repuesto ya en tránsito</div></div>
+                  </div>
+                </div>
                 <div class="row rich">
                   <div class="row-main"><span class="avatar">RS</span><div class="row-text"><div class="row-title">XKPT·32 — Toyota Hilux</div><div class="row-sub">Cambio de embrague · Téc. Rodrigo Soto · ingresó hace 2 días</div></div></div>
                   <span class="badge proceso" data-cycle-badge>En reparación</span>
@@ -548,6 +634,12 @@
                 <div><div class="num" data-target="6">0</div><div class="lbl">Horas extra hoy</div><div class="delta up">▲ +2 vs ayer</div></div>
               </div>
               <div class="demo-list">
+                <div class="row rich ai-insight">
+                  <div class="row-main">
+                    <span class="ai-insight-icon"><i data-lucide="sparkles"></i></span>
+                    <div class="row-text"><span class="ai-insight-label">Sugerencia de la IA</span><div class="ai-insight-text">Reasignar el turno de Carla Muñoz a personal disponible</div></div>
+                  </div>
+                </div>
                 <div class="row rich">
                   <div class="row-main"><span class="avatar">AF</span><div class="row-text"><div class="row-title">Ana Fuentes</div><div class="row-sub">Turno mañana · Producción · 4.2h hoy</div></div></div>
                   <span class="badge completado">Presente</span>
@@ -578,6 +670,14 @@
                 <div><div class="num" data-target="1">0</div><div class="lbl">Alertas de stock</div><div class="delta down">▼ crítico</div></div>
                 <div><div class="num" data-target="48">0</div><div class="lbl">Valor stock (MM$)</div><div class="delta up">▲ +3 vs mes pasado</div></div>
               </div>
+              <div class="demo-list">
+                <div class="row rich ai-insight">
+                  <div class="row-main">
+                    <span class="ai-insight-icon"><i data-lucide="sparkles"></i></span>
+                    <div class="row-text"><span class="ai-insight-label">Sugerencia de la IA</span><div class="ai-insight-text">Generar orden de compra automática — Pastillas de freno bajo el mínimo</div></div>
+                  </div>
+                </div>
+              </div>
               <div class="bars">
                 <div class="bar" style="--h:70%; animation-delay:0.05s"></div>
                 <div class="bar" style="--h:55%; animation-delay:0.12s"></div>
@@ -607,6 +707,12 @@
                 <div><div class="num" data-target="27">0</div><div class="lbl">Min. prom. visita</div><div class="delta down">▼ -4 vs ayer</div></div>
               </div>
               <div class="demo-list">
+                <div class="row rich ai-insight">
+                  <div class="row-main">
+                    <span class="ai-insight-icon"><i data-lucide="sparkles"></i></span>
+                    <div class="row-text"><span class="ai-insight-label">Sugerencia de la IA</span><div class="ai-insight-text">Camión ABCD·12 supera el tiempo promedio de visita — enviar aviso</div></div>
+                  </div>
+                </div>
                 <div class="row rich">
                   <div class="row-main"><span class="avatar">AB</span><div class="row-text"><div class="row-title">Camión ABCD·12 — Proveedor</div><div class="row-sub">Ingresó 13:42 · lleva 23 min dentro</div></div></div>
                   <span class="badge proceso" data-cycle-badge>Ingreso</span>
@@ -624,6 +730,7 @@
             <div class="demo-caption">Portería Parque Industrial Lonco es una empresa ficticia</div>
           </div>
 
+        </div>
         </div>
 
         <div class="carousel-nav">
@@ -790,6 +897,49 @@
     }
     requestAnimationFrame(step);
   });
+
+  // Typewriter effect for the hero's AI insight line
+  var aiTextEl = document.getElementById('aiInsightText');
+  if(aiTextEl){
+    var aiMessages = [
+      'Reponer stock de pastillas de freno antes del jueves',
+      'Técnico Rodrigo Soto puede tomar 2 órdenes más hoy',
+      'Detecté 3 facturas listas para conciliar automáticamente'
+    ];
+    if(reduceMotion){
+      aiTextEl.textContent = aiMessages[0];
+    } else {
+      aiTextEl.innerHTML = '<span class="ai-cursor"></span>';
+      var cursorSpan = aiTextEl.querySelector('.ai-cursor');
+      var msgIdx = 0, charIdx = 0, deleting = false;
+      function typeStep(){
+        var full = aiMessages[msgIdx];
+        charIdx += deleting ? -1 : 1;
+        aiTextEl.textContent = full.slice(0, charIdx);
+        aiTextEl.appendChild(cursorSpan);
+        var delay = deleting ? 28 : 42;
+        if(!deleting && charIdx === full.length){ delay = 2200; deleting = true; }
+        else if(deleting && charIdx === 0){ deleting = false; msgIdx = (msgIdx + 1) % aiMessages.length; delay = 500; }
+        setTimeout(typeStep, delay);
+      }
+      setTimeout(typeStep, 600);
+    }
+  }
+
+  // Subtle 3D tilt on the hero preview panel (desktop pointer only)
+  var heroDemo = document.querySelector('.hero-preview .demo');
+  if(heroDemo && !reduceMotion && window.matchMedia('(pointer: fine)').matches){
+    var heroWrap = document.querySelector('.hero-preview');
+    heroWrap.addEventListener('pointermove', function(e){
+      var r = heroWrap.getBoundingClientRect();
+      var px = (e.clientX - r.left) / r.width - 0.5;
+      var py = (e.clientY - r.top) / r.height - 0.5;
+      heroDemo.style.transform = 'rotateX(' + (py * -6) + 'deg) rotateY(' + (px * 8) + 'deg) translateZ(0)';
+    });
+    heroWrap.addEventListener('pointerleave', function(){
+      heroDemo.style.transform = 'rotateX(0deg) rotateY(0deg)';
+    });
+  }
 
   // Cycle status badges to suggest live systems
   if(!reduceMotion){
