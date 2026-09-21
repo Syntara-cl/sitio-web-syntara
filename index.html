@@ -110,9 +110,26 @@
 
   /* ---------- Hero ---------- */
   .wrap.wide{max-width:1080px;}
+  .hero-grid{display:flex; align-items:center; gap:48px; flex-wrap:wrap;}
+  .hero-text{flex:1 1 420px; min-width:280px;}
   .hero h1{font-size:clamp(1.9rem, 4.6vw, 2.6rem); line-height:1.25;}
   .hero p.lede{max-width:60ch; margin-top:18px; color:var(--text-muted); font-size:1.08rem;}
   .hero .cta-row{margin-top:28px; display:flex; gap:14px; flex-wrap:wrap;}
+
+  .hero-preview{position:relative; flex:1 1 380px; min-width:280px; margin-top:8px;}
+  .demo-kpis.two{grid-template-columns:repeat(2,1fr);}
+  .hero-chip{
+    position:absolute; top:-16px; right:20px; z-index:1;
+    display:flex; align-items:center; gap:7px;
+    background:var(--bg); border:1px solid var(--border); border-radius:999px;
+    padding:8px 14px; font-size:0.78rem; font-weight:700; color:var(--text);
+    box-shadow:0 10px 24px -12px var(--shadow);
+    animation:floatChip 3.6s ease-in-out infinite;
+  }
+  .hero-chip svg{width:14px; height:14px; color:var(--live); flex:none;}
+  @keyframes floatChip{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);} }
+  @media (max-width:480px){ .hero-chip{top:-12px; right:12px; padding:6px 11px; font-size:0.72rem;} }
+  @media (prefers-reduced-motion: reduce){ .hero-chip{animation:none;} }
 
   /* ---------- Carousel ---------- */
   .carousel-viewport{
@@ -338,6 +355,7 @@
   .logos-strip img:hover{filter:none; opacity:1;}
 
   /* ---------- About ---------- */
+  .signature{color:var(--text-muted); font-size:0.9rem; margin-top:6px;}
   .about-text{max-width:68ch; margin-top:32px;}
   .about-text p{color:var(--text-muted); line-height:1.7;}
   .about-text p + p{margin-top:18px;}
@@ -392,13 +410,46 @@
 </header>
 
 <main>
-  <section class="hero wrap" id="top">
-    <span class="eyebrow">Automatización y software a medida</span>
-    <h1>Construyo la automatización y la plataforma que tu operación necesita.</h1>
-    <p class="lede">En Syntara diseño y desarrollo software a medida y automatizo procesos operativos — paneles de control, aplicaciones móviles y la infraestructura de datos que los conecta — para empresas que necesitan una herramienta propia, no una plantilla genérica.</p>
-    <div class="cta-row">
-      <a class="btn primary" href="#ejemplos">Ver ejemplos</a>
-      <a class="btn secondary" href="#contacto">Contactar</a>
+  <section class="hero wrap wide" id="top">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <span class="eyebrow">Automatización y software a medida</span>
+        <h1>Construyo la automatización y la plataforma que tu operación necesita.</h1>
+        <p class="lede">En Syntara diseño y desarrollo software a medida y automatizo procesos operativos — paneles de control, aplicaciones móviles y la infraestructura de datos que los conecta — para empresas que necesitan una herramienta propia, no una plantilla genérica.</p>
+        <div class="cta-row">
+          <a class="btn primary" href="#ejemplos">Ver ejemplos</a>
+          <a class="btn secondary" href="#contacto">Contactar</a>
+        </div>
+      </div>
+
+      <div class="hero-preview">
+        <span class="hero-chip"><i data-lucide="bot"></i>IA integrada</span>
+        <div class="demo" aria-hidden="true">
+          <div class="demo-head">
+            <span class="demo-head-title"><i data-lucide="layout-dashboard"></i>Panel Syntara</span>
+            <span class="demo-live"><i></i>En vivo</span>
+          </div>
+          <div class="demo-body">
+            <div class="demo-kpis two">
+              <div><div class="num" data-target="32">0</div><div class="lbl">Horas ahorradas / semana</div><div class="delta up">▲ +6 vs sem. pasada</div></div>
+              <div><div class="num" data-target="14">0</div><div class="lbl">Procesos automatizados</div><div class="delta up">▲ +2 este mes</div></div>
+            </div>
+            <div class="demo-chart">
+              <svg viewBox="0 0 300 70" preserveAspectRatio="none">
+                <path class="area" d="M0,58 L30,50 L60,53 L90,36 L120,40 L150,24 L180,28 L210,14 L240,18 L270,9 L300,12 L300,70 L0,70 Z"></path>
+                <path class="line" d="M0,58 L30,50 L60,53 L90,36 L120,40 L150,24 L180,28 L210,14 L240,18 L270,9 L300,12"></path>
+              </svg>
+            </div>
+            <div class="demo-list">
+              <div class="row rich">
+                <div class="row-main"><span class="dot-flag mid"></span><div class="row-text"><div class="row-title">Sincronización con ERP</div><div class="row-sub">Última corrida hace 2 min</div></div></div>
+                <span class="badge completado" data-cycle-badge>Sincronizado</span>
+              </div>
+            </div>
+          </div>
+          <div class="demo-caption">Vista genérica — así se ve tu operación en un solo panel</div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -677,10 +728,11 @@
     <div class="wrap">
       <span class="eyebrow">Quién construye tu software</span>
       <h2>Ingeniero primero, programador por convicción</h2>
+      <p class="signature">Fabian Aravena Paredes · Fundador de Syntara</p>
       <div class="about-text reveal">
         <p>Me formé como Ingeniero Civil Industrial, con una base analítica que viene de años enseñando matemática. En el camino me topé una y otra vez con el mismo límite: las planillas y el software genérico no alcanzaban para modelar una operación real. Así empecé, de forma autodidacta, a construir yo mismo las herramientas que hacían falta.</p>
-        <p>Ese camino me llevó a diseñar sistemas complejos en producción — plataformas de gestión operativa completas, con automatización de procesos e integración de inteligencia artificial para eliminar el trabajo manual repetitivo.</p>
-        <p>Haber vivido del lado del cliente, forzando una operación real dentro de un software que no calzaba, es justo por qué fundé Syntara: en vez de vender licencias genéricas, construyo la herramienta a la medida exacta de cómo opera tu negocio.</p>
+        <p>Ese camino me llevó a diseñar y poner en producción sistemas complejos: plataformas de gestión operativa completas, con automatización de procesos e integración de inteligencia artificial para eliminar el trabajo manual repetitivo.</p>
+        <p>Haber vivido del lado del cliente, forzando una operación real dentro de un software que no calzaba, es justamente lo que me llevó a fundar Syntara: en vez de vender licencias genéricas, construyo la herramienta a la medida exacta de cómo opera tu negocio.</p>
       </div>
 
       <div class="brand-breakdown reveal">
@@ -715,7 +767,7 @@
 <footer class="site wrap">
   <div>
     <img src="assets/logo-syntara-full.png" alt="Syntara — Automatización y software a medida">
-    <div class="copyright">© 2026 Syntara</div>
+    <div class="copyright">© 2026 Syntara — Fabian Aravena Paredes</div>
   </div>
   <a href="mailto:contacto@syntara.cl">contacto@syntara.cl</a>
 </footer>
@@ -739,20 +791,27 @@
     requestAnimationFrame(step);
   });
 
-  // Cycle one status badge to suggest a live system
-  var cycleBadge = document.querySelector('[data-cycle-badge]');
-  if(cycleBadge && !reduceMotion){
-    var states = [
+  // Cycle status badges to suggest live systems
+  if(!reduceMotion){
+    var defaultStates = [
       { cls: 'proceso', text: 'En proceso' },
       { cls: 'completado', text: 'Completado' },
       { cls: 'pendiente', text: 'Pendiente' }
     ];
-    var i = 0;
-    setInterval(function(){
-      i = (i + 1) % states.length;
-      cycleBadge.className = 'badge ' + states[i].cls;
-      cycleBadge.textContent = states[i].text;
-    }, 2800);
+    var syncStates = [
+      { cls: 'completado', text: 'Sincronizado' },
+      { cls: 'proceso', text: 'Sincronizando…' },
+      { cls: 'pendiente', text: 'En cola' }
+    ];
+    document.querySelectorAll('[data-cycle-badge]').forEach(function(badge){
+      var states = badge.closest('.hero-preview') ? syncStates : defaultStates;
+      var i = 0;
+      setInterval(function(){
+        i = (i + 1) % states.length;
+        badge.className = 'badge ' + states[i].cls;
+        badge.textContent = states[i].text;
+      }, 2800);
+    });
   }
 
   // Scroll reveal for service cards and contact box
