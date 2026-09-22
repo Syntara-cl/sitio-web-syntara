@@ -143,21 +143,41 @@
     -webkit-background-clip:text; background-clip:text; color:transparent;
   }
 
-  /* ---------- Carousel punch (aura behind the demo stage) ---------- */
+  /* ---------- Carousel stage (dark showcase panel) ---------- */
   .carousel-stage{position:relative;}
   .carousel-stage::before{
     content:""; position:absolute; inset:-30px; z-index:-1;
     background:
-      radial-gradient(closest-side, color-mix(in srgb, var(--accent-light) 50%, transparent), transparent),
-      radial-gradient(closest-side, color-mix(in srgb, var(--primary) 50%, transparent), transparent);
+      radial-gradient(closest-side, color-mix(in srgb, var(--accent-light) 60%, transparent), transparent),
+      radial-gradient(closest-side, color-mix(in srgb, var(--primary) 60%, transparent), transparent);
     background-repeat:no-repeat;
     background-size:55% 70%, 50% 65%;
     background-position:10% 20%, 90% 80%;
-    filter:blur(42px);
-    opacity:0.4;
+    filter:blur(46px);
+    opacity:0.55;
     animation:auraDrift 9s ease-in-out infinite alternate;
   }
   @media (prefers-reduced-motion: reduce){ .carousel-stage::before{animation:none;} }
+
+  .carousel-panel{
+    position:relative; overflow:hidden;
+    background:
+      radial-gradient(circle at 14% 10%, color-mix(in srgb, var(--accent-light) 24%, transparent), transparent 45%),
+      radial-gradient(circle at 88% 90%, color-mix(in srgb, var(--primary) 30%, transparent), transparent 48%),
+      var(--nav-dark);
+    border:1px solid color-mix(in srgb, var(--accent-light) 24%, transparent);
+    border-radius:var(--radius);
+    padding:44px 0 26px;
+    box-shadow:0 40px 80px -32px var(--shadow), inset 0 1px 0 rgba(255,255,255,0.06);
+  }
+  .carousel-panel::before{
+    content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+    background-image:radial-gradient(color-mix(in srgb, #fff 16%, transparent) 1px, transparent 1px);
+    background-size:24px 24px;
+    -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 42%, #000 50%, transparent 100%);
+    mask-image:radial-gradient(ellipse 70% 60% at 50% 42%, #000 50%, transparent 100%);
+    opacity:0.55;
+  }
 
   /* ---------- Hero AI insight row ---------- */
   .demo-list .row.ai-insight{
@@ -197,23 +217,55 @@
 
   /* ---------- Carousel ---------- */
   .carousel-viewport{
-    display:flex; gap:0; overflow-x:auto; scroll-snap-type:x mandatory;
-    scrollbar-width:none; -ms-overflow-style:none; margin-top:32px; border-radius:var(--radius);
+    --slide-w:min(560px, 84%);
+    position:relative; z-index:1;
+    display:flex; gap:20px; overflow-x:auto; scroll-snap-type:x mandatory;
+    scrollbar-width:none; -ms-overflow-style:none;
+    padding-inline:calc((100% - var(--slide-w)) / 2);
+    scroll-padding-inline:calc((100% - var(--slide-w)) / 2);
+    cursor:grab; user-select:none; -webkit-user-select:none;
   }
+  .carousel-viewport:active{cursor:grabbing;}
   .carousel-viewport::-webkit-scrollbar{display:none;}
-  .carousel-viewport .demo{flex:0 0 100%; scroll-snap-align:center;}
-  .carousel-nav{display:flex; align-items:center; justify-content:center; gap:18px; margin-top:20px;}
-  .car-btn{
-    width:36px; height:36px; border-radius:50%; border:1px solid var(--border); background:var(--bg);
-    color:var(--text); font-size:1.15rem; line-height:1; cursor:pointer; display:grid; place-items:center;
-    flex:none;
+  .carousel-viewport .demo{
+    flex:0 0 var(--slide-w); scroll-snap-align:center;
+    opacity:0.32; transform:scale(0.86); filter:saturate(0.55);
+    transition:opacity 0.45s ease, transform 0.45s ease, filter 0.45s ease;
+    animation:none;
   }
-  .car-btn:hover{border-color:var(--primary); color:var(--primary);}
+  .carousel-viewport .demo.is-active{opacity:1; transform:scale(1); filter:none;}
+  @media (max-width:700px){ .carousel-viewport{ --slide-w:88%; gap:14px; } }
+
+  .carousel-nav{
+    position:relative; z-index:1;
+    display:flex; align-items:center; justify-content:center; gap:16px; margin-top:28px;
+  }
+  .car-btn{
+    width:38px; height:38px; border-radius:50%; border:1px solid rgba(255,255,255,0.16);
+    background:rgba(255,255,255,0.06); backdrop-filter:blur(6px);
+    color:var(--nav-text); cursor:pointer; display:grid; place-items:center; flex:none;
+    transition:border-color 0.2s ease, background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+  .car-btn svg{width:16px; height:16px;}
+  .car-btn:hover{border-color:var(--accent-light); color:var(--accent-light); background:rgba(255,255,255,0.1); transform:translateY(-1px);}
+  .car-dots-wrap{
+    display:flex; align-items:center; gap:14px;
+    background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.14);
+    backdrop-filter:blur(6px); border-radius:999px; padding:9px 16px;
+  }
   .car-dots{display:flex; gap:8px;}
   .car-dots button{
-    width:8px; height:8px; border-radius:50%; border:none; background:var(--border); padding:0; cursor:pointer;
+    width:7px; height:7px; border-radius:50%; border:none; background:rgba(255,255,255,0.28); padding:0; cursor:pointer;
+    transition:width 0.25s ease, background 0.25s ease;
   }
-  .car-dots button.active{background:var(--primary); width:22px; border-radius:5px; transition:width 0.25s ease, background 0.25s ease;}
+  .car-dots button.active{background:var(--accent-light); width:20px; border-radius:5px;}
+  .car-rail{position:relative; width:54px; height:3px; border-radius:999px; background:rgba(255,255,255,0.14); overflow:hidden;}
+  .car-rail span{position:absolute; inset:0; width:0%; background:linear-gradient(90deg, var(--accent-light), #fff); border-radius:999px;}
+  .car-rail.playing span{animation:railFill 5s linear forwards;}
+  .car-rail.paused span{animation-play-state:paused;}
+  @keyframes railFill{ from{width:0%;} to{width:100%;} }
+  @media (prefers-reduced-motion: reduce){ .car-rail span{animation:none !important; width:0%;} }
+
   .carousel-caption{margin-bottom:20px; min-height:78px;}
   .carousel-caption h3{font-size:1.2rem; margin-bottom:6px;}
   .carousel-caption p{color:var(--text-muted); max-width:56ch;}
@@ -538,7 +590,8 @@
           <p id="carDesc">Se puede configurar para lo que necesites gestionar: órdenes, visitas, mantenciones o cualquier flujo de trabajo con estados.</p>
         </div>
         <div class="carousel-stage">
-        <div class="carousel-viewport" id="carouselViewport">
+        <div class="carousel-panel">
+        <div class="carousel-viewport" id="carouselViewport" tabindex="0" role="group" aria-roledescription="carrusel" aria-label="Ejemplos de plataformas">
 
           <div class="demo" aria-hidden="true">
             <div class="demo-head">
@@ -731,18 +784,22 @@
           </div>
 
         </div>
-        </div>
 
         <div class="carousel-nav">
-          <button class="car-btn" id="carPrev" aria-label="Ejemplo anterior">‹</button>
-          <div class="car-dots" id="carDots">
-            <button class="active" data-i="0" aria-label="Gestión de servicios"></button>
-            <button data-i="1" aria-label="Taller mecánico"></button>
-            <button data-i="2" aria-label="Gestión de personal"></button>
-            <button data-i="3" aria-label="Gestión de bodega"></button>
-            <button data-i="4" aria-label="Control de portería"></button>
+          <button class="car-btn" id="carPrev" aria-label="Ejemplo anterior"><i data-lucide="chevron-left"></i></button>
+          <div class="car-dots-wrap">
+            <div class="car-dots" id="carDots">
+              <button class="active" data-i="0" aria-label="Gestión de servicios"></button>
+              <button data-i="1" aria-label="Taller mecánico"></button>
+              <button data-i="2" aria-label="Gestión de personal"></button>
+              <button data-i="3" aria-label="Gestión de bodega"></button>
+              <button data-i="4" aria-label="Control de portería"></button>
+            </div>
+            <div class="car-rail" id="carRail"><span></span></div>
           </div>
-          <button class="car-btn" id="carNext" aria-label="Siguiente ejemplo">›</button>
+          <button class="car-btn" id="carNext" aria-label="Siguiente ejemplo"><i data-lucide="chevron-right"></i></button>
+        </div>
+        </div>
         </div>
       </div>
     </div>
@@ -981,13 +1038,14 @@
     revealEls.forEach(function(el){ el.classList.add('in-view'); });
   }
 
-  // Carousel: dots + arrows + gentle autoplay, pausing on interaction
+  // Carousel: dots + arrows + drag + keyboard + autoplay, pausing on interaction
   var viewport = document.getElementById('carouselViewport');
   if(viewport){
     var slides = viewport.querySelectorAll('.demo');
     var dots = document.querySelectorAll('#carDots button');
     var titleEl = document.getElementById('carTitle');
     var descEl = document.getElementById('carDesc');
+    var rail = document.getElementById('carRail');
     var captions = [
       { title: 'Un panel adaptable a cualquier tipo de servicio', desc: 'Se puede configurar para lo que necesites gestionar: órdenes, visitas, mantenciones o cualquier flujo de trabajo con estados.' },
       { title: 'Control de un taller mecánico', desc: 'Qué vehículo está en cada etapa, cuáles esperan repuestos y cuáles están listos para el retiro del cliente.' },
@@ -997,35 +1055,88 @@
     ];
     var current = 0;
     var autoplayTimer = null;
+    var dragging = false, dragMoved = false, dragStartX = 0, dragStartScroll = 0;
 
-    function goTo(i){
-      current = (i + slides.length) % slides.length;
-      viewport.scrollTo({ left: slides[current].offsetLeft, behavior: reduceMotion ? 'auto' : 'smooth' });
+    function slideTarget(i){
+      return slides[i].offsetLeft - (viewport.clientWidth - slides[i].offsetWidth) / 2;
+    }
+    function nearestIndex(){
+      var center = viewport.scrollLeft + viewport.clientWidth / 2;
+      var best = 0, bestDist = Infinity;
+      slides.forEach(function(s, idx){
+        var d = Math.abs((s.offsetLeft + s.offsetWidth / 2) - center);
+        if(d < bestDist){ bestDist = d; best = idx; }
+      });
+      return best;
+    }
+    function render(){
+      slides.forEach(function(s, idx){ s.classList.toggle('is-active', idx === current); });
       dots.forEach(function(d, idx){ d.classList.toggle('active', idx === current); });
       if(titleEl && captions[current]){ titleEl.textContent = captions[current].title; descEl.textContent = captions[current].desc; }
+    }
+    function restartRail(){
+      if(!rail) return;
+      rail.classList.remove('playing', 'paused');
+      void rail.offsetWidth;
+      if(!reduceMotion) rail.classList.add('playing');
+    }
+    function goTo(i){
+      current = (i + slides.length) % slides.length;
+      viewport.scrollTo({ left: slideTarget(current), behavior: reduceMotion ? 'auto' : 'smooth' });
+      render();
+      restartRail();
     }
     function startAutoplay(){
       if(reduceMotion) return;
       stopAutoplay();
       autoplayTimer = setInterval(function(){ goTo(current + 1); }, 5000);
+      if(rail) rail.classList.remove('paused');
     }
-    function stopAutoplay(){ if(autoplayTimer){ clearInterval(autoplayTimer); autoplayTimer = null; } }
+    function stopAutoplay(){
+      if(autoplayTimer){ clearInterval(autoplayTimer); autoplayTimer = null; }
+      if(rail) rail.classList.add('paused');
+    }
 
     document.getElementById('carPrev').addEventListener('click', function(){ goTo(current - 1); stopAutoplay(); startAutoplay(); });
     document.getElementById('carNext').addEventListener('click', function(){ goTo(current + 1); stopAutoplay(); startAutoplay(); });
     dots.forEach(function(d){ d.addEventListener('click', function(){ goTo(parseInt(d.getAttribute('data-i'), 10)); stopAutoplay(); startAutoplay(); }); });
 
     viewport.addEventListener('pointerenter', stopAutoplay);
-    viewport.addEventListener('pointerleave', startAutoplay);
+    viewport.addEventListener('pointerleave', function(){ if(!dragging) startAutoplay(); });
     viewport.addEventListener('scroll', function(){
-      var idx = Math.round(viewport.scrollLeft / viewport.clientWidth);
-      if(idx !== current && idx >= 0 && idx < slides.length){
-        current = idx;
-        dots.forEach(function(d, i2){ d.classList.toggle('active', i2 === current); });
-        if(titleEl && captions[current]){ titleEl.textContent = captions[current].title; descEl.textContent = captions[current].desc; }
-      }
+      var idx = nearestIndex();
+      if(idx !== current){ current = idx; render(); }
     }, { passive: true });
 
+    // Drag to scroll for mouse/trackpad users
+    viewport.addEventListener('pointerdown', function(e){
+      if(e.pointerType === 'touch') return;
+      dragging = true; dragMoved = false;
+      dragStartX = e.clientX; dragStartScroll = viewport.scrollLeft;
+      viewport.setPointerCapture(e.pointerId);
+      stopAutoplay();
+    });
+    viewport.addEventListener('pointermove', function(e){
+      if(!dragging) return;
+      var dx = e.clientX - dragStartX;
+      if(Math.abs(dx) > 4) dragMoved = true;
+      viewport.scrollLeft = dragStartScroll - dx;
+    });
+    function endDrag(){
+      if(!dragging) return;
+      dragging = false;
+      if(dragMoved){ goTo(nearestIndex()); } else { render(); }
+      startAutoplay();
+    }
+    viewport.addEventListener('pointerup', endDrag);
+    viewport.addEventListener('pointercancel', endDrag);
+
+    viewport.addEventListener('keydown', function(e){
+      if(e.key === 'ArrowRight'){ e.preventDefault(); goTo(current + 1); stopAutoplay(); startAutoplay(); }
+      if(e.key === 'ArrowLeft'){ e.preventDefault(); goTo(current - 1); stopAutoplay(); startAutoplay(); }
+    });
+
+    render();
     startAutoplay();
   }
 
