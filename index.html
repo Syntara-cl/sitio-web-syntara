@@ -229,11 +229,11 @@
   .carousel-viewport::-webkit-scrollbar{display:none;}
   .carousel-viewport .demo{
     flex:0 0 var(--slide-w); scroll-snap-align:center;
-    opacity:0.32; transform:scale(0.86); filter:saturate(0.55);
-    transition:opacity 0.45s ease, transform 0.45s ease, filter 0.45s ease;
-    animation:none;
+    opacity:0.32; transform:scale(0.86);
+    transition:opacity 0.45s ease, transform 0.45s ease;
+    animation:none; will-change:transform, opacity;
   }
-  .carousel-viewport .demo.is-active{opacity:1; transform:scale(1); filter:none;}
+  .carousel-viewport .demo.is-active{opacity:1; transform:scale(1);}
   @media (max-width:700px){ .carousel-viewport{ --slide-w:88%; gap:14px; } }
 
   .carousel-nav{
@@ -242,16 +242,16 @@
   }
   .car-btn{
     width:38px; height:38px; border-radius:50%; border:1px solid rgba(255,255,255,0.16);
-    background:rgba(255,255,255,0.06); backdrop-filter:blur(6px);
+    background:rgba(255,255,255,0.1);
     color:var(--nav-text); cursor:pointer; display:grid; place-items:center; flex:none;
     transition:border-color 0.2s ease, background 0.2s ease, color 0.2s ease, transform 0.2s ease;
   }
   .car-btn svg{width:16px; height:16px;}
-  .car-btn:hover{border-color:var(--accent-light); color:var(--accent-light); background:rgba(255,255,255,0.1); transform:translateY(-1px);}
+  .car-btn:hover{border-color:var(--accent-light); color:var(--accent-light); background:rgba(255,255,255,0.16); transform:translateY(-1px);}
   .car-dots-wrap{
     display:flex; align-items:center; gap:14px;
-    background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.14);
-    backdrop-filter:blur(6px); border-radius:999px; padding:9px 16px;
+    background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.16);
+    border-radius:999px; padding:9px 16px;
   }
   .car-dots{display:flex; gap:8px;}
   .car-dots button{
@@ -1056,15 +1056,19 @@
     var current = 0;
     var autoplayTimer = null;
     var dragging = false, dragMoved = false, dragStartX = 0, dragStartScroll = 0;
+    var centers = [], vw = 0;
 
-    function slideTarget(i){
-      return slides[i].offsetLeft - (viewport.clientWidth - slides[i].offsetWidth) / 2;
+    // Cache slide positions instead of reading layout on every scroll/drag tick
+    function measure(){
+      vw = viewport.clientWidth;
+      centers = Array.prototype.map.call(slides, function(s){ return s.offsetLeft + s.offsetWidth / 2; });
     }
+    function slideTarget(i){ return centers[i] - vw / 2; }
     function nearestIndex(){
-      var center = viewport.scrollLeft + viewport.clientWidth / 2;
+      var center = viewport.scrollLeft + vw / 2;
       var best = 0, bestDist = Infinity;
-      slides.forEach(function(s, idx){
-        var d = Math.abs((s.offsetLeft + s.offsetWidth / 2) - center);
+      centers.forEach(function(c, idx){
+        var d = Math.abs(c - center);
         if(d < bestDist){ bestDist = d; best = idx; }
       });
       return best;
@@ -1103,10 +1107,21 @@
 
     viewport.addEventListener('pointerenter', stopAutoplay);
     viewport.addEventListener('pointerleave', function(){ if(!dragging) startAutoplay(); });
-    viewport.addEventListener('scroll', function(){
+
+    // Sync current/dots once scrolling settles, instead of on every scroll tick
+    function syncAfterScroll(){
       var idx = nearestIndex();
       if(idx !== current){ current = idx; render(); }
-    }, { passive: true });
+    }
+    if('onscrollend' in window){
+      viewport.addEventListener('scrollend', syncAfterScroll, { passive: true });
+    } else {
+      var scrollSettleTimer = null;
+      viewport.addEventListener('scroll', function(){
+        clearTimeout(scrollSettleTimer);
+        scrollSettleTimer = setTimeout(syncAfterScroll, 80);
+      }, { passive: true });
+    }
 
     // Drag to scroll for mouse/trackpad users
     viewport.addEventListener('pointerdown', function(e){
@@ -1136,6 +1151,16 @@
       if(e.key === 'ArrowLeft'){ e.preventDefault(); goTo(current - 1); stopAutoplay(); startAutoplay(); }
     });
 
+    var resizeTimer = null;
+    window.addEventListener('resize', function(){
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function(){
+        measure();
+        viewport.scrollTo({ left: slideTarget(current), behavior: 'auto' });
+      }, 150);
+    });
+
+    measure();
     render();
     startAutoplay();
   }
