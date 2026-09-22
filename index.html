@@ -37,7 +37,7 @@
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700;800;900&display=swap">
 <script src="https://cdn.jsdelivr.net/npm/lucide@1.46.0/dist/umd/lucide.min.js"></script>
 <style>
   :root{
@@ -60,6 +60,11 @@
     --state-active-fg:#0E7A8C; --state-active-bg:#DEF2F5;
     --state-attention-fg:#B23A2E; --state-attention-bg:#FBE7E4;
     --state-done-fg:#1E7A46; --state-done-bg:#DFF3E6;
+    /* Escala de radios del sitio completo — reemplaza al --radius plano de 3px.
+       lg: cards/paneles grandes · md: botones/inputs/KPIs · sm: badges/íconos/elementos chicos. */
+    --radius-lg:20px;
+    --radius-md:12px;
+    --radius-sm:10px;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth; scroll-padding-top:100px;}
@@ -85,7 +90,7 @@
 
   h1,h2,h3{
     font-family:"Source Sans 3", sans-serif;
-    font-weight:700;
+    font-weight:800;
     text-wrap:balance;
     margin:0;
     color:var(--text);
@@ -115,7 +120,7 @@
   header.site nav a:hover{color:var(--nav-text);}
   header.site nav a.btn{
     color:var(--primary-contrast); background:var(--primary);
-    padding:9px 16px; border-radius:var(--radius); font-weight:600;
+    padding:9px 16px; border-radius:var(--radius-md); font-weight:800;
   }
   header.site nav a.btn:hover{opacity:0.9;}
 
@@ -124,7 +129,7 @@
   section.alt{border-top:1px solid var(--border); border-bottom:1px solid var(--border);}
 
   .eyebrow{
-    font-size:0.85rem; font-weight:600; letter-spacing:0.02em;
+    font-size:0.85rem; font-weight:800; letter-spacing:0.02em;
     text-transform:uppercase; color:var(--primary); margin-bottom:12px; display:block;
   }
 
@@ -186,7 +191,7 @@
       radial-gradient(circle at 88% 90%, color-mix(in srgb, var(--primary) 30%, transparent), transparent 48%),
       var(--nav-dark);
     border:1px solid color-mix(in srgb, var(--accent-light) 24%, transparent);
-    border-radius:var(--radius);
+    border-radius:var(--radius-lg);
     padding:44px 0 26px;
     box-shadow:0 40px 80px -32px var(--shadow), inset 0 1px 0 rgba(255,255,255,0.06);
   }
@@ -320,8 +325,8 @@
   .doc-fields .frow span:last-child{color:var(--live); font-weight:700;}
 
   /* ---------- Slide content: bar chart ---------- */
-  .bars{display:flex; align-items:flex-end; gap:10px; height:120px; background:var(--surface); border-radius:var(--radius); padding:16px;}
-  .bars .bar{flex:1; background:var(--primary); border-radius:var(--radius) var(--radius) 0 0; height:0; animation:growBar 1s ease-out forwards;}
+  .bars{display:flex; align-items:flex-end; gap:10px; height:120px; background:var(--surface); border-radius:var(--radius-md); padding:16px;}
+  .bars .bar{flex:1; background:var(--primary); border-radius:var(--radius-sm) var(--radius-sm) 0 0; height:0; animation:growBar 1s ease-out forwards;}
   .bars .bar.low{background:var(--state-attention-fg);}
   @keyframes growBar{ to{ height:var(--h); } }
   .bar-values{display:flex; gap:10px; margin-top:8px;}
@@ -329,7 +334,7 @@
   .bar-labels{display:flex; gap:10px; margin-top:2px;}
   .bar-labels span{flex:1; text-align:center; font-size:0.68rem; color:var(--text-muted);}
   .export-tags{display:flex; gap:10px; margin-top:14px; flex-wrap:wrap;}
-  .export-tags span{font-size:0.72rem; font-weight:700; letter-spacing:0.03em; padding:5px 10px; border-radius:var(--radius); background:var(--border); color:var(--text);}
+  .export-tags span{font-size:0.72rem; font-weight:800; letter-spacing:0.03em; padding:7px 12px; border-radius:var(--radius-sm); background:var(--border); color:var(--text);}
   .warn-tag{background:var(--state-attention-bg) !important; color:var(--state-attention-fg) !important; letter-spacing:0 !important;}
 
   /* ---------- Slide content: mobile ---------- */
@@ -350,49 +355,50 @@
 
   /* ---------- Demo panel ---------- */
   .demo{
-    background:var(--bg); border:1px solid var(--border); border-radius:var(--radius);
+    background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-lg);
     box-shadow:0 30px 60px -30px var(--shadow), 0 8px 16px -12px var(--shadow);
     overflow:hidden;
     animation:fadeUp 0.7s 0.15s ease both;
   }
   .demo-head{
     display:flex; align-items:center; justify-content:space-between; gap:10px;
-    padding:18px 20px 14px; border-bottom:1px solid var(--border);
+    padding:20px 22px 16px; border-bottom:1px solid var(--border);
   }
-  .demo-head-title{display:flex; align-items:center; gap:9px; font-size:1.02rem; font-weight:700; color:var(--text);}
+  .demo-head-title{display:flex; align-items:center; gap:9px; font-size:1.02rem; font-weight:900; color:var(--text);}
   .demo-head-title svg{width:18px; height:18px; flex:none; color:var(--primary);}
   .demo-live{display:flex; align-items:center; gap:7px; font-size:0.7rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; font-weight:600;}
   .demo-live i{width:7px; height:7px; border-radius:50%; background:var(--live); display:inline-block; position:relative;}
   .demo-live i::after{content:""; position:absolute; inset:-5px; border-radius:50%; border:1px solid var(--live); animation:pulse 2.2s infinite;}
   @keyframes pulse{0%{opacity:.7; transform:scale(.5);} 75%{opacity:0; transform:scale(1.9);} 100%{opacity:0;}}
 
-  .demo-body{padding:16px;}
+  .demo-body{padding:20px;}
 
-  .demo-tabs{display:flex; gap:18px; margin:-4px 0 14px; border-bottom:1px solid var(--border);}
+  .demo-tabs{display:flex; gap:18px; margin:-4px 0 16px; border-bottom:1px solid var(--border);}
   .demo-tabs span{font-size:0.76rem; color:var(--text-muted); padding-bottom:8px; border-bottom:2px solid transparent;}
-  .demo-tabs span.active{color:var(--text); font-weight:600; border-bottom-color:var(--primary);}
+  .demo-tabs span.active{color:var(--text); font-weight:800; border-bottom-color:var(--primary);}
 
-  .demo-kpis{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:14px;}
+  .demo-kpis{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:16px;}
   @media (max-width:480px){ .demo-kpis{grid-template-columns:1fr 1fr;} }
-  .demo-kpis div{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:9px 8px; box-shadow:0 6px 14px -12px var(--shadow);}
-  .demo-kpis .num{font-size:1.22rem; font-weight:700; color:var(--text); font-variant-numeric:tabular-nums;}
+  .demo-kpis div{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-md); padding:12px 12px; box-shadow:0 6px 14px -12px var(--shadow);}
+  .demo-kpis .num{font-size:1.32rem; font-weight:900; color:var(--text); font-variant-numeric:tabular-nums;}
   .demo-kpis .lbl{font-size:0.66rem; color:var(--text-muted); margin-top:3px;}
-  .demo-kpis .delta{font-size:0.63rem; font-weight:700; margin-top:5px;}
+  .demo-kpis .delta{font-size:0.63rem; font-weight:800; margin-top:5px;}
   .demo-kpis .delta.up{color:var(--live);}
   .demo-kpis .delta.down{color:var(--state-neutral-fg);}
   .demo-updated{font-size:0.7rem; color:var(--text-muted); margin:-10px 0 16px;}
 
   .row.rich{align-items:center;}
-  .row-main{display:flex; align-items:center; gap:10px; min-width:0; flex:1;}
+  .row-main{display:flex; align-items:center; gap:12px; min-width:0; flex:1;}
   .row-text{min-width:0; flex:1;}
-  .row-title{font-weight:600; font-size:0.88rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .row-title{font-weight:800; font-size:0.88rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
   .row-sub{font-size:0.72rem; color:var(--text-muted); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
   .avatar{
-    width:28px; height:28px; border-radius:50%; background:var(--primary); color:var(--primary-contrast);
-    font-size:0.66rem; font-weight:700; display:flex; align-items:center; justify-content:center; flex:none;
+    width:34px; height:34px; border-radius:var(--radius-sm);
+    background:color-mix(in srgb, var(--primary) 12%, var(--bg)); color:var(--primary);
+    font-size:0.68rem; font-weight:900; display:flex; align-items:center; justify-content:center; flex:none;
   }
-  .avatar.alt{background:var(--live);}
-  .avatar.warn{background:var(--state-attention-fg);}
+  .avatar.alt{background:color-mix(in srgb, var(--live) 14%, var(--bg)); color:var(--live);}
+  .avatar.warn{background:color-mix(in srgb, var(--state-attention-fg) 14%, var(--bg)); color:var(--state-attention-fg);}
   .dot-flag{width:9px; height:9px; border-radius:50%; flex:none;}
   .dot-flag.high{background:var(--state-attention-fg);}
   .dot-flag.mid{background:var(--live);}
@@ -408,18 +414,49 @@
   @keyframes draw{ to{stroke-dashoffset:0;} }
 
   .demo-list{display:flex; flex-direction:column; gap:5px;}
-  .demo-list .row{display:flex; align-items:center; justify-content:space-between; gap:10px; font-size:0.85rem; padding:6px 9px; background:var(--surface); border-radius:var(--radius);}
+  .demo-list .row{display:flex; align-items:center; justify-content:space-between; gap:10px; font-size:0.85rem; padding:10px 12px; background:var(--surface); border-radius:var(--radius-md);}
   .demo-list .row .id{color:var(--text-muted); font-variant-numeric:tabular-nums; margin-right:6px;}
   .badge{
-    font-size:0.8rem; font-weight:700; letter-spacing:0.01em;
+    font-size:0.71rem; font-weight:800; letter-spacing:0.01em; text-transform:uppercase;
     white-space:nowrap; display:inline-flex; align-items:center; gap:6px;
-    background:none; border:none; padding:0;
+    border:none; padding:5px 10px; border-radius:var(--radius-sm);
+    background:color-mix(in srgb, currentColor 14%, transparent);
   }
-  .badge::before{content:""; width:7px; height:7px; border-radius:50%; background:currentColor; flex:none;}
+  .badge::before{content:""; width:6px; height:6px; border-radius:50%; background:currentColor; flex:none;}
   .badge.pendiente{color:var(--state-neutral-fg);}
   .badge.proceso{color:var(--state-active-fg);}
   .badge.completado{color:var(--state-done-fg);}
   .badge.atencion{color:var(--state-attention-fg);}
+
+  /* ---------- Elementos de interfaz real (botones de fila, búsqueda, stat inline) ---------- */
+  .row-btn{
+    display:inline-flex; align-items:center; gap:6px; flex:none;
+    padding:9px 14px; border-radius:var(--radius-md); border:none;
+    font-size:0.72rem; font-weight:800; letter-spacing:0.01em;
+    color:var(--primary-contrast); white-space:nowrap;
+    font-family:inherit; cursor:default;
+  }
+  .row-btn svg{width:13px; height:13px;}
+  .row-btn.primary{background:var(--primary); box-shadow:0 8px 16px -8px color-mix(in srgb, var(--primary) 60%, transparent);}
+  .row-btn.success{background:var(--live); box-shadow:0 8px 16px -8px color-mix(in srgb, var(--live) 60%, transparent);}
+  .row-btn.attention{background:var(--state-attention-fg); box-shadow:0 8px 16px -8px color-mix(in srgb, var(--state-attention-fg) 60%, transparent);}
+
+  .demo-search{
+    display:flex; align-items:center; gap:9px;
+    border:1px solid var(--border); border-radius:var(--radius-md);
+    padding:11px 14px; margin-bottom:14px; background:var(--bg);
+  }
+  .demo-search svg{width:14px; height:14px; flex:none; color:var(--text-muted);}
+  .demo-search span{font-size:0.8rem; color:var(--text-muted);}
+  .demo-search .demo-search-btn{
+    margin-left:auto; display:inline-flex; align-items:center; gap:5px; flex:none;
+    padding:7px 11px; border-radius:var(--radius-sm); background:var(--surface);
+    border:1px solid var(--border); font-size:0.71rem; font-weight:800; color:var(--text);
+  }
+  .demo-search .demo-search-btn svg{width:12px; height:12px; color:var(--text);}
+
+  .demo-stat-inline{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:14px; font-size:0.78rem; color:var(--text-muted);}
+  .demo-stat-inline strong{color:var(--text); font-weight:900; font-variant-numeric:tabular-nums;}
 
   .demo-caption{
     padding:10px 16px; border-top:1px solid var(--border); background:var(--surface);
@@ -433,15 +470,15 @@
   .reveal.in-view{opacity:1; transform:none;}
 
   .btn{
-    display:inline-block; text-decoration:none; font-weight:700; font-size:0.92rem;
-    padding:12px 20px; border-radius:var(--radius);
+    display:inline-block; text-decoration:none; font-weight:800; font-size:0.92rem;
+    padding:12px 20px; border-radius:var(--radius-md);
     transition:box-shadow 0.15s ease, transform 0.15s ease, background 0.15s ease;
   }
   .btn.primary{
     background:var(--primary); color:var(--primary-contrast);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -2px 0 rgba(0,0,0,0.12), 0 2px 5px -1px var(--shadow);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -2px 0 rgba(0,0,0,0.12), 0 6px 16px -6px color-mix(in srgb, var(--primary) 55%, transparent);
   }
-  .btn.primary:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,0.3), inset 0 -1px 0 rgba(0,0,0,0.12), 0 3px 8px -1px var(--shadow); transform:translateY(-1px);}
+  .btn.primary:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,0.3), inset 0 -1px 0 rgba(0,0,0,0.12), 0 8px 20px -6px color-mix(in srgb, var(--primary) 60%, transparent); transform:translateY(-1px);}
   .btn.primary:active{box-shadow:inset 0 1px 3px rgba(0,0,0,0.2); transform:translateY(0);}
   .btn.secondary{background:var(--surface); color:var(--text); border:1px solid var(--border);}
   .btn.secondary:hover{border-color:var(--primary); color:var(--primary);}
@@ -457,18 +494,18 @@
   }
   @media (max-width:620px){ .card-grid{grid-template-columns:1fr;} }
   .card-grid > div{
-    background:var(--bg); padding:22px; border:1px solid var(--border); border-radius:var(--radius);
+    background:var(--bg); padding:22px; border:1px solid var(--border); border-radius:var(--radius-lg);
     box-shadow:0 10px 24px -18px var(--shadow);
     transition:box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
   }
   .card-grid > div:hover{box-shadow:0 16px 32px -16px var(--shadow); border-color:color-mix(in srgb, var(--primary) 35%, var(--border)); transform:translateY(-2px);}
   .card-icon{
     display:inline-flex; align-items:center; justify-content:center;
-    width:38px; height:38px; border-radius:var(--radius); margin-bottom:14px;
+    width:40px; height:40px; border-radius:var(--radius-sm); margin-bottom:14px;
     background:color-mix(in srgb, var(--primary) 12%, var(--bg)); color:var(--primary);
   }
   .card-icon svg{width:19px; height:19px;}
-  .card-grid h3{font-size:1.02rem; margin-bottom:8px;}
+  .card-grid h3{font-size:1.02rem; font-weight:800; margin-bottom:8px;}
   .card-grid p{color:var(--text-muted); font-size:0.95rem;}
 
   .meta-line{
@@ -502,7 +539,7 @@
   }
   .brand-breakdown .part{flex:1; min-width:140px;}
   .brand-breakdown .letters{
-    display:block; font-size:2rem; font-weight:700; color:var(--primary); letter-spacing:0.02em;
+    display:block; font-size:2rem; font-weight:900; color:var(--primary); letter-spacing:0.02em;
   }
   .brand-breakdown .meaning{
     display:block; font-size:0.82rem; color:var(--text-muted); margin-top:4px;
@@ -513,7 +550,7 @@
 
   /* ---------- Contact ---------- */
   .contact-box{
-    background:var(--bg); border:1px solid var(--border); border-radius:var(--radius);
+    background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-lg);
     box-shadow:0 20px 40px -28px var(--shadow);
     padding:36px; text-align:left;
   }
@@ -649,7 +686,7 @@
                 </div>
                 <div class="row rich">
                   <div class="row-main"><span class="dot-flag low"></span><div class="row-text"><div class="row-title">Orden #3318 — Diagnóstico inicial</div><div class="row-sub">Cliente: Familia Contreras · Prioridad baja</div></div></div>
-                  <span class="badge pendiente">Pendiente</span>
+                  <button type="button" class="row-btn primary"><i data-lucide="user-plus"></i>Asignar técnico</button>
                 </div>
               </div>
             </div>
@@ -663,22 +700,12 @@
             </div>
             <div class="demo-body">
               <div class="demo-tabs"><span class="active">En taller</span><span>Ingresos</span><span>Repuestos</span><span>Historial</span></div>
-              <div class="demo-kpis">
-                <div><div class="num" data-target="7">0</div><div class="lbl">Vehículos en taller</div><div class="delta up">▲ +2 vs ayer</div></div>
-                <div><div class="num" data-target="2">0</div><div class="lbl">Esperando repuesto</div><div class="delta down">▼ -1 vs ayer</div></div>
-                <div><div class="num" data-target="4">0</div><div class="lbl">Listos para retiro</div><div class="delta up">▲ +3 vs ayer</div></div>
-                <div><div class="num" data-target="12">0</div><div class="lbl">Ingresos esta semana</div><div class="delta up">▲ +5 vs sem. pasada</div></div>
-              </div>
+              <div class="demo-search"><i data-lucide="search"></i><span>Buscar por patente, cliente o técnico…</span><span class="demo-search-btn"><i data-lucide="sliders-horizontal"></i>Filtros</span></div>
+              <div class="demo-stat-inline"><span><strong class="num" data-target="7">0</strong> vehículos en taller</span><span><strong class="num" data-target="2">0</strong> esperando repuesto</span><span><strong class="num" data-target="4">0</strong> listos para retiro</span></div>
               <div class="demo-list">
-                <div class="row rich ai-insight">
-                  <div class="row-main">
-                    <span class="ai-insight-icon"><i data-lucide="sparkles"></i></span>
-                    <div class="row-text"><span class="ai-insight-label">Sugerencia de la IA</span><div class="ai-insight-text">Asignar el próximo ingreso a Rodrigo Soto — repuesto ya en tránsito</div></div>
-                  </div>
-                </div>
                 <div class="row rich">
                   <div class="row-main"><span class="avatar">RS</span><div class="row-text"><div class="row-title">XKPT·32 — Toyota Hilux</div><div class="row-sub">Cambio de embrague · Téc. Rodrigo Soto · ingresó hace 2 días</div></div></div>
-                  <span class="badge proceso" data-cycle-badge>En reparación</span>
+                  <button type="button" class="row-btn success"><i data-lucide="check"></i>Marcar listo</button>
                 </div>
                 <div class="row rich">
                   <div class="row-main"><span class="avatar alt">MP</span><div class="row-text"><div class="row-title">RTVB·88 — Chevrolet Sail</div><div class="row-sub">Revisión de frenos · Téc. Mario Pizarro · repuesto en tránsito</div></div></div>
@@ -700,19 +727,12 @@
             </div>
             <div class="demo-body">
               <div class="demo-tabs"><span class="active">Turno actual</span><span>Asistencia</span><span>Vacaciones</span><span>Nómina</span></div>
-              <div class="demo-kpis">
+              <div class="demo-search"><i data-lucide="search"></i><span>Buscar por nombre o área…</span><span class="demo-search-btn"><i data-lucide="calendar-days"></i>Hoy</span></div>
+              <div class="demo-kpis two">
                 <div><div class="num" data-target="24">0</div><div class="lbl">Personal activo</div><div class="delta up">▲ 100% dotación</div></div>
-                <div><div class="num" data-target="9">0</div><div class="lbl">En turno ahora</div><div class="delta up">▲ 62% del turno</div></div>
                 <div><div class="num" data-target="1">0</div><div class="lbl">Ausencias hoy</div><div class="delta down">▼ -1 vs ayer</div></div>
-                <div><div class="num" data-target="6">0</div><div class="lbl">Horas extra hoy</div><div class="delta up">▲ +2 vs ayer</div></div>
               </div>
               <div class="demo-list">
-                <div class="row rich ai-insight">
-                  <div class="row-main">
-                    <span class="ai-insight-icon"><i data-lucide="sparkles"></i></span>
-                    <div class="row-text"><span class="ai-insight-label">Sugerencia de la IA</span><div class="ai-insight-text">Reasignar el turno de Carla Muñoz a personal disponible</div></div>
-                  </div>
-                </div>
                 <div class="row rich">
                   <div class="row-main"><span class="avatar">AF</span><div class="row-text"><div class="row-title">Ana Fuentes</div><div class="row-sub">Turno mañana · Producción · 4.2h hoy</div></div></div>
                   <span class="badge completado">Presente</span>
@@ -723,7 +743,7 @@
                 </div>
                 <div class="row rich">
                   <div class="row-main"><span class="avatar warn">CM</span><div class="row-text"><div class="row-title">Carla Muñoz</div><div class="row-sub">Turno tarde · Producción · sin marcar ingreso</div></div></div>
-                  <span class="badge atencion">Ausente</span>
+                  <button type="button" class="row-btn attention"><i data-lucide="repeat"></i>Reasignar turno</button>
                 </div>
               </div>
             </div>
@@ -737,19 +757,10 @@
             </div>
             <div class="demo-body">
               <div class="demo-tabs"><span class="active">Stock</span><span>Movimientos</span><span>Proveedores</span><span>Alertas</span></div>
-              <div class="demo-kpis">
+              <div class="demo-search"><i data-lucide="search"></i><span>Buscar por SKU o proveedor…</span><span class="demo-search-btn"><i data-lucide="file-down"></i>Exportar</span></div>
+              <div class="demo-kpis two">
                 <div><div class="num" data-target="312">0</div><div class="lbl">SKU activos</div><div class="delta up">▲ +6 este mes</div></div>
-                <div><div class="num" data-target="14">0</div><div class="lbl">Movimientos hoy</div><div class="delta up">▲ +3 vs ayer</div></div>
                 <div><div class="num" data-target="1">0</div><div class="lbl">Alertas de stock</div><div class="delta down">▼ crítico</div></div>
-                <div><div class="num" data-target="48">0</div><div class="lbl">Valor stock (MM$)</div><div class="delta up">▲ +3 vs mes pasado</div></div>
-              </div>
-              <div class="demo-list">
-                <div class="row rich ai-insight">
-                  <div class="row-main">
-                    <span class="ai-insight-icon"><i data-lucide="sparkles"></i></span>
-                    <div class="row-text"><span class="ai-insight-label">Sugerencia de la IA</span><div class="ai-insight-text">Generar orden de compra automática — Pastillas de freno bajo el mínimo</div></div>
-                  </div>
-                </div>
               </div>
               <div class="bars">
                 <div class="bar" style="--h:70%; animation-delay:0.05s"></div>
@@ -761,7 +772,10 @@
               </div>
               <div class="bar-values"><span>128</span><span>94</span><span>22</span><span>156</span><span>210</span><span>88</span></div>
               <div class="bar-labels"><span>Filtros</span><span>Correas</span><span>Pastillas</span><span>Bujías</span><span>Aceite</span><span>Baterías</span></div>
-              <div class="export-tags"><span class="warn-tag">⚠ Stock crítico: Pastillas de freno (22 un., mínimo 40)</span></div>
+              <div class="export-tags">
+                <span class="warn-tag">⚠ Stock crítico: Pastillas de freno (22 un., mínimo 40)</span>
+                <button type="button" class="row-btn primary"><i data-lucide="shopping-cart"></i>Generar orden de compra</button>
+              </div>
             </div>
             <div class="demo-caption">Bodega Central es una empresa ficticia</div>
           </div>
@@ -773,26 +787,16 @@
             </div>
             <div class="demo-body">
               <div class="demo-tabs"><span class="active">Ingresos y salidas</span><span>Visitas</span><span>Vehículos</span><span>Incidentes</span></div>
-              <div class="demo-kpis">
-                <div><div class="num" data-target="5">0</div><div class="lbl">Vehículos dentro</div><div class="delta up">▲ +1 vs ayer</div></div>
-                <div><div class="num" data-target="12">0</div><div class="lbl">Visitas hoy</div><div class="delta up">▲ +5 vs ayer</div></div>
-                <div><div class="num" data-target="3">0</div><div class="lbl">Ingresos última hora</div><div class="delta up">▲ activo</div></div>
-                <div><div class="num" data-target="27">0</div><div class="lbl">Min. prom. visita</div><div class="delta down">▼ -4 vs ayer</div></div>
-              </div>
+              <div class="demo-search"><i data-lucide="search"></i><span>Buscar por nombre, patente o empresa…</span><span class="demo-search-btn"><i data-lucide="user-plus"></i>Nueva visita</span></div>
+              <div class="demo-stat-inline"><span><strong class="num" data-target="5">0</strong> dentro ahora</span><span><strong class="num" data-target="12">0</strong> visitas hoy</span><span><strong class="num" data-target="3">0</strong> ingresos última hora</span></div>
               <div class="demo-list">
-                <div class="row rich ai-insight">
-                  <div class="row-main">
-                    <span class="ai-insight-icon"><i data-lucide="sparkles"></i></span>
-                    <div class="row-text"><span class="ai-insight-label">Sugerencia de la IA</span><div class="ai-insight-text">Camión ABCD·12 supera el tiempo promedio de visita — enviar aviso</div></div>
-                  </div>
-                </div>
                 <div class="row rich">
                   <div class="row-main"><span class="avatar">AB</span><div class="row-text"><div class="row-title">Camión ABCD·12 — Proveedor</div><div class="row-sub">Ingresó 13:42 · lleva 23 min dentro</div></div></div>
-                  <span class="badge proceso" data-cycle-badge>Ingreso</span>
+                  <button type="button" class="row-btn success"><i data-lucide="log-out"></i>Registrar salida</button>
                 </div>
                 <div class="row rich">
                   <div class="row-main"><span class="avatar alt">JT</span><div class="row-text"><div class="row-title">Juan Torres — Visita</div><div class="row-sub">Ingresó 13:50 · destino: Oficina Administración</div></div></div>
-                  <span class="badge proceso">Ingreso</span>
+                  <button type="button" class="row-btn success"><i data-lucide="log-out"></i>Registrar salida</button>
                 </div>
                 <div class="row rich">
                   <div class="row-main"><span class="avatar">AB</span><div class="row-text"><div class="row-title">Camión ABCD·12 — Proveedor</div><div class="row-sub">Salió 14:05 · estuvo 23 min dentro</div></div></div>
